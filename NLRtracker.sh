@@ -34,13 +34,15 @@ Usage: $(basename "$0") [OPTION]...
                    Default: module/abe3069_Data_S1.hmm (from Ma et al., 2020)
   -d Filepath      Description of Interproscan
                    Default: module/InterProScan 5.51-85.0.list
+  -z String        Interproscan Run Mode - "cluster" or "standalone"
+                   Default: "standalone" 
 EOM
   exit 2 
 }
 
 # check options
 echo -e "\n---------------------- input & option -----------------------";
-while getopts ":s:i:f:t:c:m:x:d:o:h" optKey; do
+while getopts ":s:i:f:t:c:m:x:d:z:o:h" optKey; do
   case "$optKey" in
     s)
       if [ -f ${OPTARG} ]; then
@@ -94,6 +96,10 @@ while getopts ":s:i:f:t:c:m:x:d:o:h" optKey; do
       echo "output directory       = ${OPTARG}"
       outdir=${OPTARG}
       ;;
+    z)
+      echo "run mode = ${OPTARG}
+      runmode=${OPTARG}
+      ;;
     '-h'|'--help'|* )
         usage
       ;;
@@ -124,8 +130,8 @@ fasta=${outdir}/tmp.fasta
 if [ -z $FLG_I ]; then
   echo -e "\nRun Interproscan"
   interproscan.sh -version
-  echo -e "\ninterproscan.sh -i $fasta -f gff3 -t ${Seqtype:-p} -o ${outdir}/interpro_result.gff -cpu ${CPU:-2} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles"
-  interproscan.sh -i $fasta -f gff3 -t ${Seqtype:-"p"} -o "${outdir}/interpro_result.gff" -cpu ${CPU:-2} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles -dp
+  echo -e "\ninterproscan.sh -i $fasta -f gff3 -t ${Seqtype:-p} -o ${outdir}/interpro_result.gff -cpu ${CPU:-2} -m ${runmode:-"standalone"} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles"
+  interproscan.sh -i $fasta -f gff3 -t ${Seqtype:-"p"} -o "${outdir}/interpro_result.gff" -cpu ${CPU:-2} -m ${runmode:-"standalone"} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles -dp
   interpro_result="${outdir}/interpro_result.gff"
 else
   echo -e "\nPass Interproscan (Use $interpro_result as output of Interproscan)"
