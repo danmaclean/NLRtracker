@@ -32,7 +32,7 @@ Usage: $(basename "$0") [OPTION]...
   -d Filepath      Description of Interproscan
                    Default: module/InterProScan 5.51-85.0.list
   -p String        Mode. Either standalone or cluster. 
-				   Default: standalone
+                   Default: standalone
 EOM
   exit 2 
 }
