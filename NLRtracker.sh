@@ -127,8 +127,8 @@ fasta=${outdir}/tmp.fasta
 if [ -z $FLG_I ]; then
   echo -e "\nRun Interproscan"
   interproscan.sh -version
-  echo -e "\ninterproscan.sh -i $fasta -f gff3 -t ${Seqtype:-p} -o ${outdir}/interpro_result.gff -p ${MODE:-standalone} -cpu ${CPU:-2} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles"
-  interproscan.sh -i $fasta -f gff3 -t ${Seqtype:-"p"} -o "${outdir}/interpro_result.gff" -p ${MODE:-standalone} -cpu ${CPU:-2} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles
+  echo -e "\ninterproscan.sh -i $fasta -f gff3 -t ${Seqtype:-p} -o ${outdir}/interpro_result.gff -p ${MODE:-standalone} -cpu ${CPU:-2} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles -dp"
+  interproscan.sh -i $fasta -f gff3 -t ${Seqtype:-"p"} -o "${outdir}/interpro_result.gff" -p ${MODE:-standalone} -cpu ${CPU:-2} -appl Pfam,Gene3D,SUPERFAMILY,PRINTS,SMART,CDD,ProSiteProfiles -dp
   interpro_result="${outdir}/interpro_result.gff"
 else
   echo -e "\nPass Interproscan (Use $interpro_result as output of Interproscan)"
